@@ -8,4 +8,3 @@ add app /app
 
 workdir /app
 cmd python hello.py
-
