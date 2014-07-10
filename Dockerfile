@@ -1,11 +1,11 @@
-FROM ubuntu
-MAINTAINER jmiller@adops.com
+from ubuntu
+maintainer jmiller@adops.com
 
-RUN sudo apt-get update
-RUN sudo apt-get install -y python
+run sudo apt-get update
+run sudo apt-get install -y python
 
-ADD app /app
+add app /app
 
-WORKDIR /app
-CMD python hello.py
+workdir /app
+cmd python hello.py
 
