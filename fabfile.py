@@ -15,7 +15,7 @@ def integrate(build_name=None):
         build_name = local("git rev-parse HEAD", capture=True)[:7]
     else:
         local("git tag {tag}".format(tag=build_name))
-        local("git push -f hub {tag}".format(tag=build_name)
+        local("git push -f hub {tag}".format(tag=build_name))
     image_name = "{}/{}_{}".format(registry_host, service_name, build_name)
     local("git pull hub mainline")
     build(image_name)
