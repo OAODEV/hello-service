@@ -18,7 +18,7 @@ class DockerHelloTests(unittest.TestCase):
 
     def test_index(self):
         with open("index.html", "r") as htmlfile:
-            self.assertTrue(my_id() == htmlfile.read())
+            self.assertTrue(my_id() in htmlfile.read())
 
     def test_can_pass(self):
         self.assertTrue(True)
