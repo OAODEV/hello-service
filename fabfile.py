@@ -2,7 +2,7 @@ from fabric.api import *
 
 env.hosts = ['104.130.3.209']
 
-#@TODO move this configuration into project config files
+#@TODO move this configuration into a project config file
 service_name = "hello"
 registry_host = "104.130.3.209:5000"
 unittest_cmd = "python test.py"
