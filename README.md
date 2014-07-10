@@ -1,4 +1,4 @@
 dockerHello
 ===========
 
-Application to demonstrate and work out our docker workflow.
+Working out a docker development workflow.
