@@ -30,7 +30,7 @@ def integrate(build_name=None):
     else:
         # if we are naming the build make sure we are tagging the git
         # commit with the name we have chosen
-        local("git tag {tag}".format(tag=build_name))
+        local("git tag -f {tag}".format(tag=build_name))
         local("git push -f hub {tag}".format(tag=build_name))
 
     # Merge any new mainline changes
