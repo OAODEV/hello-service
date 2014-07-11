@@ -50,8 +50,8 @@ def integrate(build_name=None):
                                                  image_name,
                                                  accept_cmd,
                                                  )
-    env.hosts = [BUILD_HOST]
-    run(build_cmd)
+    with settings(host_string=BUILD_HOST):
+        run(build_cmd)
 
 def build(image_name):
     local("docker build -t {image_name} .".format(image_name=image_name))
@@ -70,6 +70,6 @@ def deploy_local(image_name, port):
     run_image_on_port(local, image_name, port)
 
 def deploy(image_name, port):
-    env.hosts = [app_host]
-    run("docker pull {image_name}".format(image_name=image_name))
-    run_image_on_port(run, image_name, port)
+    with settings(host_string=app_host):
+        run("docker pull {image_name}".format(image_name=image_name))
+        run_image_on_port(run, image_name, port)
