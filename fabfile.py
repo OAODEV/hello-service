@@ -1,3 +1,5 @@
+import urllib
+
 from fabric.api import *
 
 
@@ -47,8 +49,8 @@ def integrate(build_name=None):
     # trigger the build server for this image
     local("docker push {image_name}".format(image_name=image_name))
     build_cmd = "curl localhost:{}/{}?{}".format(BUILD_PORT,
-                                                 image_name,
-                                                 accept_cmd,
+                                                 urllib.quote(image_name),
+                                                 urllib.quote(accept_cmd),
                                                  )
     with settings(host_string=BUILD_HOST):
         run(build_cmd)
