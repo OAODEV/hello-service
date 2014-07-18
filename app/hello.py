@@ -8,7 +8,7 @@ def my_id():
 
 def make_index():
     with open("index.html", "w") as htmlfile:
-        htmlfile.write("<h1>hi! I'm {}.</h1>".format(my_id()))
+        htmlfile.write("{}".format(my_id()))
 
 if __name__ == "__main__":
     make_index()
