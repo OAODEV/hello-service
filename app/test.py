@@ -1,24 +1,29 @@
 import os
 import unittest
+import urllib2
+from multiprocessing import Process
 
-from hello import my_id, make_index
+from hello import my_id, httpd
 
 class DockerHelloTests(unittest.TestCase):
 
     def setUp(self):
-        make_index()
+        os.environ['HOSTNAME'] = "test-hostname"
+        self.server = Process(target=httpd.serve_forever)
+        self.server.start()
 
     def tearDown(self):
-        os.remove("index.html")
+        self.server.terminate()
 
     def test_my_id(self):
         self.assertTrue(len(my_id()) > 5)
         self.assertEqual(my_id(), my_id())
         self.assertEqual(type(my_id()), str)
 
-    def test_index(self):
-        with open("index.html", "r") as htmlfile:
-            self.assertTrue(my_id() in htmlfile.read())
+    def test_hello_handler(self):
+        self.assertEqual(
+            urllib2.urlopen("http://localhost:8000").read().strip(),
+            '<h1>Hello from test-hostname</h1>')
 
     def test_can_pass(self):
         self.assertTrue(True)
