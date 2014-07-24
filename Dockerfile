@@ -1,4 +1,4 @@
-from ubuntu
+from ubuntu:14.04
 maintainer jmiller@adops.com
 
 run sudo apt-get update
