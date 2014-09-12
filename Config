@@ -1,0 +1,11 @@
+[Service]
+name=docker_hello
+unittest_cmd=true
+accept_cmd=true
+exposed_port=8000
+
+[Delivery]
+registry_host_addr=104.130.3.209:5000
+accept_host_addr=104.130.3.209:5001
+app_host=104.130.3.209
+

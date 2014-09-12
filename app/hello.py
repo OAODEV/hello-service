@@ -1,8 +1,6 @@
-import os
 import SocketServer
 
-def my_id():
-    return os.getenv('HOSTNAME')
+from PipHelloLib.lib import hello
 
 class HelloHandler(SocketServer.StreamRequestHandler):
     """
@@ -11,7 +9,7 @@ class HelloHandler(SocketServer.StreamRequestHandler):
     """
 
     def handle(self):
-        self.wfile.write("<h1>Hello from {}</h1>".format(my_id()))
+        self.wfile.write(hello())
 
 httpd = SocketServer.TCPServer(("", 8000), HelloHandler)
 
