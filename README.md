@@ -1,4 +1,4 @@
-dockerHello
+helloService
 ===========
 
-Working out a docker development workflow.
+An example project outlining our DevOps setup
