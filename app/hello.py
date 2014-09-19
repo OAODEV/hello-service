@@ -1,6 +1,6 @@
 import SocketServer
 
-from PipHelloLib.lib import hello
+from hellolib import hello
 
 class HelloHandler(SocketServer.StreamRequestHandler):
     """
