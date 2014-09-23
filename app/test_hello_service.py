@@ -12,7 +12,7 @@ import os
 import unittest
 from mock import MagicMock as Mock
 
-from hello import HelloHandler
+from serve_hello import HelloHandler
 
 class DockerHelloTests(unittest.TestCase):
 
