@@ -3,16 +3,20 @@ from ConfigParser import ConfigParser
 
 from fabric.api import *
 
-config = ConfigParser()
-config.read('Config')
+manifest = ConfigParser()
+manifest.read('Manifest')
 
-service_name = config.get('Service', 'name')
-unittest_cmd = config.get('Service', 'unittest_cmd')
-accept_cmd = config.get('Service', 'accept_cmd')
-exposed_port = config.get('Service', 'exposed_port')
-registry_host_addr = config.get('Delivery', 'registry_host_addr')
-accept_host_addr = config.get('Delivery', 'accept_host_addr')
-app_host = config.get('Delivery', 'app_host')
+service_name = manifest.get('Service', 'name')
+unittest_cmd = manifest.get('Service', 'unittest_cmd')
+accept_cmd = manifest.get('Service', 'accept_cmd')
+sanity_cmd = manifest.get('Service', 'sanity_cmd')
+
+service_port = manifest.get('Service', 'service_port')
+docs_port = manifest.get('Service', 'docs_port')
+coverage_port = manifest.get('Service', 'coverage_port')
+
+registry_host_addr = '104.130.3.209:5000'
+accept_host_addr = '104.130.3.209:5001'
 
 REGISTRY_HOST = registry_host_addr.split(':')[0]
 REGISTRY_PORT = registry_host_addr.split(':')[1]
@@ -30,6 +34,19 @@ def test(build_name=None):
     build(image_name)
     vagrant("docker run {image_name} {cmd}".format(
                 image_name=image_name, cmd=unittest_cmd))
+
+def accept(build_name=None):
+    image_name = make_image_name(build_name)
+    build(image_name)
+    vagrant("docker run -d -p 127.0.0.1:{}:{} {}".format(
+        service_port, service_port, image_name))
+    try:
+        vagrant(accept_cmd)
+    except Exception, e:
+        raise e
+    finally:
+        vagrant("docker stop `docker ps -q`")
+        vagrant("docker rm `docker ps -aq`")
 
 def integrate(build_name=None):
 
@@ -96,4 +113,4 @@ def make_image_name(build_name):
     return image_name
 
 def vagrant(cmd):
-    local("vagrant ssh -c 'cd /vagrant && sudo {}'".format(cmd))
+    local("vagrant ssh -c 'cd /vagrant && {}'".format(cmd))

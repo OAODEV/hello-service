@@ -1,0 +1,10 @@
+[Service]
+name=hello
+
+unittest_cmd=python test_hello_service.py
+accept_cmd=python accept_hello_service.py
+sanity_cmd=true
+
+service_port=8000
+docs_port=8001
+coverage_port=8002

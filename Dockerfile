@@ -1,10 +1,14 @@
-from ubuntu:14.04
-maintainer jmiller@adops.com
+FROM ubuntu:14.04
+MAINTAINER jmiller@adops.com
 
-run sudo apt-get update
-run sudo apt-get install -y python
+RUN sudo apt-get update
+RUN sudo apt-get install -y python python-pip git
 
-add . /app
+# eventually install this from an internal server that is exposed
+# by deploying the library.
+RUN pip install git+https://github.com/OAODEV/hellolib.git
 
-workdir /app/app
-cmd python hello.py
+ADD . /app
+
+WORKDIR /app/app
+CMD python serve_hello.py
