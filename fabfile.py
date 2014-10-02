@@ -10,8 +10,8 @@ unittest_cmd = manifest.get('Service', 'unittest_cmd')
 # sanity_cmd = manifest.get('Service', 'sanity_cmd')
 
 service_port = manifest.get('Service', 'service_port')
-docs_port = manifest.get('Service', 'docs_port')
-coverage_port = manifest.get('Service', 'coverage_port')
+# docs_port = manifest.get('Service', 'docs_port')
+# coverage_port = manifest.get('Service', 'coverage_port')
 
 registry_host_addr = '104.130.3.209:5000'
 accept_host_addr = '104.130.3.209:5001'
