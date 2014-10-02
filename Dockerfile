@@ -7,7 +7,7 @@ RUN pip install mock
 
 # eventually install this from an internal server that is exposed
 # by deploying the library.
-RUN pip install git+https://github.com/OAODEV/hellolib.git
+RUN pip install git+http://104.130.3.209:9000/
 
 ADD . /app
 
