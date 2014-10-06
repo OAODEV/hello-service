@@ -1,10 +1,9 @@
 """
-Unit tests will be run inside the container, by fabric, testing the code units
-in the contained environment.
+Unit tests will be run inside the container, by the ops platform,
+testing the code units in the contained environment.
 
-This means that code for compiled systems should be added to the container to
-allow the tests to be run in the contained environment. This creates consistancy
-between the environment we run and the environment we build and test.
+The Dockerfile adds everything needed to run the tests into the
+container in order
 
 """
 
