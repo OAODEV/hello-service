@@ -32,7 +32,7 @@ so on. The platform will use this file to build the container and
 provide that container with the command to run the service. The
 Dockerfile has more specific documentation.
 
-More information on [docker containers](http://docs.docker.com/)
+More information on [docker containers](http://docs.docker.com/).
 
 ### Manifest
 
