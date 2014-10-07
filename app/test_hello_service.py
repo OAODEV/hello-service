@@ -3,7 +3,8 @@ Unit tests will be run inside the container, by the ops platform,
 testing the code units in the contained environment.
 
 The Dockerfile adds everything needed to run the tests into the
-container in order
+container in order to run the tests in the same environment that will
+be deployed.
 
 """
 
