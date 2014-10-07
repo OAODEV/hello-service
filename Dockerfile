@@ -17,7 +17,7 @@ RUN pip install mock
 # this installs the internally developed dependency (hellolib).
 # From this project's point of view however there is no difference
 # between internal and external.
-RUN pip install git+git://104.130.3.209:9000/
+RUN pip install git+https://github.com/OAODEV/hellolib.git
 
 # This copies the project folder (from outside docker) into /app
 # inside the container's filesystem
