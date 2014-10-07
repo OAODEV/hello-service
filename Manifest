@@ -1,6 +1,18 @@
+# This file is in the classic .ini format
+# It requires the [Service] heading
 [Service]
+
+# the name of the service. This is how the platform will identify this
+# service in names of containers and possibly other places in the
+# future. It should be unique across all services on the platform
 name=hello
 
+# the command that will run the unit tests. This will be executed by
+# fabric inside the container to test the container. The container and
+# code should be built such that this command properly tests the units
+# in the container.
 unittest_cmd=python test_hello_service.py
 
+# The port that will be exposed by the container. The platform will use
+# this to set up routing between services during orchistration.
 service_port=8000

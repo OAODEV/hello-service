@@ -8,8 +8,8 @@ MAINTAINER jmiller@adops.com
 
 # each `RUN` statement applies a change to the container by executing
 # the command in the container. Here we first update the package manager
-# Then install a few external dependencies.
-# (python, pip, git and the mock library)
+# Then install a few external dependencies (python, pip, git and the
+# mock library).
 RUN sudo apt-get update
 RUN sudo apt-get install -y python python-pip git
 RUN pip install mock
