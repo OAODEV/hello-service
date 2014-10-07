@@ -10,8 +10,8 @@ Clone this project with
 The Service
 -----------
 
-The hello service runs a TCP server that says hello. it identifys it's
-hostname or claiming to be anonymous if there is no hostname.
+The hello service runs a TCP server that says hello. It identifies its
+hostname or claims to be anonymous if there is no hostname.
 
 The service is contained in `app/serve_hello.py`. This file is heavily
 documented describing operations considerations.
