@@ -3,7 +3,9 @@ helloService
 
 An example service project outlining our DevOps setup
 
-Clone this project with `git clone -o hub -b mainline git@github.com:OAODEV/helloService.git`
+Clone this project with
+
+    git clone -o hub -b mainline git@github.com:OAODEV/helloService.git
 
 The Service
 -----------
