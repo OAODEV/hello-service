@@ -32,11 +32,15 @@ so on. The platform will use this file to build the container and
 provide that container with the command to run the service. The
 Dockerfile has more specific documentation.
 
+<<<<<<< HEAD
 more information on docker http://docs.docker.com/
 
 ### Manifest
 
 ### fabfile.py
+=======
+more information on [docker containers](http://docs.docker.com/).
+>>>>>>> 5e9f4db5eb9952d63e9cc155ee5446b6b8adb687
 
 ### Vagrantfile
 
