@@ -32,15 +32,19 @@ so on. The platform will use this file to build the container and
 provide that container with the command to run the service. The
 Dockerfile has more specific documentation.
 
-<<<<<<< HEAD
 more information on docker http://docs.docker.com/
 
 ### Manifest
 
+This file describes to the operations platform certain specifics about
+the service that the platform needs in order to work with it. Details
+are documented in the Manifest file
+
 ### fabfile.py
-=======
-more information on [docker containers](http://docs.docker.com/).
->>>>>>> 5e9f4db5eb9952d63e9cc155ee5446b6b8adb687
+
+This file provides the automation that runs the different development
+tasks in a way that is compatible with the operations platform. It is
+the entrypoint to the platform.
 
 ### Vagrantfile
 
