@@ -22,7 +22,7 @@ and has operations considerations documented.
 The Operations Files
 --------------------
 
-The project root needs the following files in order to hook into the
+The project root needs the following files in the project root to hook into the
 operations platform.
 
 ### Dockerfile
