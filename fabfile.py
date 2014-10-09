@@ -18,8 +18,8 @@ registry_host_addr = '104.130.3.209:5000'
 
 REGISTRY_HOST = registry_host_addr.split(':')[0]
 REGISTRY_PORT = registry_host_addr.split(':')[1]
-ACCEPT_HOST = accept_host_addr.split(':')[0]
-ACCEPT_PORT = accept_host_addr.split(':')[1]
+# ACCEPT_HOST = accept_host_addr.split(':')[0]
+# ACCEPT_PORT = accept_host_addr.split(':')[1]
 
 def up():
     """ Bring up the local dev environment """
