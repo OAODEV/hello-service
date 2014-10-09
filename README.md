@@ -7,8 +7,7 @@ Clone this project with
 
     git clone -o hub -b mainline git@github.com:OAODEV/helloService.git
     
-In order to work with the operations platform developers need to have two
-depandencies installed. [Vagrant](https://docs.vagrantup.com/v2/installation/)
+In order to work with the operations platform developers need to install [Vagrant](https://docs.vagrantup.com/v2/installation/)
 and [Fabric](http://www.fabfile.org/installing.html).
 
 The Service
