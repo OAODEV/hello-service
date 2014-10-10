@@ -5,6 +5,7 @@
 # the name of the service. This is how the platform will identify this
 # service in names of containers and possibly other places in the
 # future. It should be unique across all services on the platform
+# the name must contain characters in [a-z 0-9 - _ .]
 name=hello
 
 # the command that will run the unit tests. This will be executed by
