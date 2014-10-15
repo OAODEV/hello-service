@@ -13,13 +13,13 @@ service_port = manifest.get('Service', 'service_port')
 # docs_port = manifest.get('Service', 'docs_port')
 # coverage_port = manifest.get('Service', 'coverage_port')
 
-registry_host_addr = '104.130.3.209:5000'
-accept_host_addr = '104.130.3.209:5001'
+registry_host_addr = 'qa.iadops.com:5000'
+# accept_host_addr = '104.130.3.209:5001'
 
 REGISTRY_HOST = registry_host_addr.split(':')[0]
 REGISTRY_PORT = registry_host_addr.split(':')[1]
-ACCEPT_HOST = accept_host_addr.split(':')[0]
-ACCEPT_PORT = accept_host_addr.split(':')[1]
+# ACCEPT_HOST = accept_host_addr.split(':')[0]
+# ACCEPT_PORT = accept_host_addr.split(':')[1]
 
 def up():
     """ Bring up the local dev environment """
@@ -28,6 +28,11 @@ def up():
 def down():
     """ Destroy the local dev environment """
     local('vagrant destroy')
+
+def ssh(build_name=None):
+    """ start the container and drop the user into a shell """
+    image_name = make_image_name(build_name)
+    vagrant("docker run -i -t {} /bin/bash".format(image_name))
 
 def test(build_name=None):
     """ Run the unit tests in a local build """
@@ -68,28 +73,37 @@ def integrate(build_name=None):
     image_name = make_image_name(build_name)
     vagrant("docker push {image_name}".format(image_name=image_name))
 
+    if os.path.exists("./success_art.txt"):
+        with open("./success_art.txt", 'r') as art:
+            print art
+
     #TODO trigger acceptance testing in the Build server
 
-""" probably will move all deploy tasks out of fabric
-def deploy_local(image_name, port):
-    build(image_name)
-    run_image_on_port(vagrant, image_name, port)
+def deploy(host, port):
+    """
+    deploy the service
 
-def deploy(image_name, port):
-    with settings(host_string=app_host):
-        run("docker pull {image_name}".format(image_name=image_name))
-        run_image_on_port(run, image_name, port)
-"""
+    host: the url or ip of the machine to run the service on
+    port: the port on the host to bind the service to
+
+    """
+
+    print "* Deploying to {}:{}".format(host, port)
+
+    image_name = make_image_name(None)
+
+    build(image_name)
+    vagrant("docker push {image_name}".format(image_name=image_name))
+
+    with settings(host_string=host):
+        run("docker run -d -p {port}:{docker_port} {image_name}".format(
+            port=port, docker_port=service_port, image_name=image_name))
+
+    print "* {} is now available at {}:{}".format(service_name ,host, port)
 
 def build(image_name):
     """ build the Dockerfile with the given name """
     vagrant("docker build -t {image_name} .".format(image_name=image_name))
-
-def run_image_on_port(runner, image_name, port):
-    """ run the image and bind the exposed port to the given port """
-    test(image_name)
-    runner("docker run -p {port}:{docker_port} -i -t -d {image_name}".format(
-            port=port, docker_port=exposed_port, image_name=image_name))
 
 def make_image_name(build_name=''):
     """
