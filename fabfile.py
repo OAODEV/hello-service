@@ -76,7 +76,7 @@ def integrate(build_name=None):
 
     if os.path.exists("./success_art.txt"):
         with open("./success_art.txt", 'r') as art:
-            print art
+            print art.read()
 
     #TODO trigger acceptance testing in the Build server
 
