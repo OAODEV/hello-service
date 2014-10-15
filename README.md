@@ -7,6 +7,10 @@ Clone this project with
 
     git clone -o hub -b mainline git@github.com:OAODEV/helloService.git
     
+Update common ops files by running this command in the project root.
+
+    curl https://gist.githubusercontent.com/oaojesse/2320739caf2e4c735542/raw/5a3ea060318dbedecae51bbaa2a0cbe169ebdf53/update_common.sh | sh
+    
 In order to work with the operations platform developers need to install [Vagrant](https://docs.vagrantup.com/v2/installation/)
 and [Fabric](http://www.fabfile.org/installing.html).
 
