@@ -1,53 +1,39 @@
 
- MMM
- MMM MM
-  MMMM MM
-     MMMM M
-       MMMM MM                                               MMMMMM
-         MMMM M                                             MMMMMMMM
-            MMM MM                                         MMMMMMMMMM
-               MM  M                                   M    MMMMMMMMM
-                 MMM M                                    MMMMMMMMMMM
-                    MM MM                                 MMMMMMMM M
-                      MMMM                                MM   MMMM
-                         MM M     MMMMMMMMMMMMMMMM     MMMMMMMMMMMM
-                           MMM        M           MMMMMMM MM   M MMMM
-                            M     MMMMM                            MM
-                            MMMMMMM MMMMMMM                      MMMM
-                             MMMMMM    MMMMMMMMMMMMM               MM
-                                          M     MMMMMMM           MMM
-                                                 M MMMMMMMMMM   MMMM
-                                                MMMMMMMMMMMMMMMMMMM
-                                               MMMMMMMMMMMMMMMMMMM
-                                              MMM  MMMMMMMMMMMMMM
-                                              MM   MM MMMMMMMMMM
-                                             MM       MMMMMMMMM
-                                             M        MMMMMMM
-                                           M     MM   MMMMMMM
-                                          M      MMM  MMMMMM
-                                        M         MMMMMMMM
-                                       M           MMMMMM
-                                     M              MMMMMM
-                                    M                 MMMM
-                                                      MMMM
-                                            M         MMMM
-                                           MMM        MMMM
-                                M          MMM        MMM
-                               M          MMMMM      MMMM
-                              M           MMM M        MM
-                             M       MM MMM   MM        M
-                           M        MM MM      MM       M
-                          M        MM MM       MMM      MM
-                          MMM     MMMM         MMMM
-                         M MMM  MMMM           MMMM          MM
-                        M MMMMMMMMM             MMM          MMM MM
-                       MMMM MMMM                 MMM  MM     MMM MMMMM MM
-                      MMMMMM M                    MMMM MMMMMMMMM MMMMMMMMMM
-                    MMMMMMMM                          MMMMMMMMMM MMMMMMMMMM
-                 MMMMMMMMM                                          MMMMMMMM
-               MMMMMMMMM                                              MMMMMMMM
-          MMMMMMMMMMMMM                                                 MMM MM
-           MMMMMMMMMMMM           MMMMMMMMMMMMMMMMMMM       M MMMMMMMM   MMMMMM
-                               MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM   MMMMMM
-                                               MMMMMMMMM
-                                               
+ M M
+ MMM M
+   MMM M
+      MM MM                                  MMMMM
+        MM M                                MMMMMMM
+           MM M                          M   MMMMMMM
+              M M                           MMMMMMM
+                MMM                        MM  MMM
+                   M M MMMMMMMMMMMMMMMM  MMMMMMMMM
+                     M    M M
+                     M MMMMMMMMM                MMM
+                      MMMM    MMMMMMMMMM          M
+                                    MMMM        MMM
+                                    MMMMMMMMMMMMMM
+                                   MMMMMMMMMMMMMMM
+                                  MM  MMMMMMMMMMM
+                                  M   M MMMMMMM
+                                 M       MMMMM
+                                M    MM  MMMM
+                              M      MMMMMM
+                                      MMMMM
+                                        MMM
+                                         MM
+                                 M       MM
+                                MM       MM
+                       M        MMM     MM
+                      M        MM MM     M
+                           MM M    M      M
+                          MM M     MM     M
+                   MMM   MMM       MMM
+                  MMMMMMMM          MM        MMM
+                 MMM M M            MMM MM    MM MMM M
+                MMMMMM               MMMMMMMMMMMMMMMMMMM
+            MMMMMMMM                              MMM MMM
+           MMMMMMM                                  MMMMMM
+       MMMMMMMMMM                                     MM MM
+        MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+                                   MMMMMMM   
