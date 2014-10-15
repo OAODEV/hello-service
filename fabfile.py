@@ -1,3 +1,4 @@
+import os
 from ConfigParser import ConfigParser
 from fabric.api import *
 
