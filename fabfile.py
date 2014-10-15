@@ -7,20 +7,13 @@ manifest.read('Manifest')
 
 service_name = manifest.get('Service', 'name')
 unittest_cmd = manifest.get('Service', 'unittest_cmd')
-# accept_cmd = manifest.get('Service', 'accept_cmd')
-# sanity_cmd = manifest.get('Service', 'sanity_cmd')
 
 service_port = manifest.get('Service', 'service_port')
-# docs_port = manifest.get('Service', 'docs_port')
-# coverage_port = manifest.get('Service', 'coverage_port')
 
 registry_host_addr = 'qa.iadops.com:5000'
-# accept_host_addr = '104.130.3.209:5001'
 
 REGISTRY_HOST = registry_host_addr.split(':')[0]
 REGISTRY_PORT = registry_host_addr.split(':')[1]
-# ACCEPT_HOST = accept_host_addr.split(':')[0]
-# ACCEPT_PORT = accept_host_addr.split(':')[1]
 
 def up():
     """ Bring up the local dev environment """
@@ -130,6 +123,6 @@ def make_image_name(build_name=''):
 
     return image_name
 
-def vagrant(cmd):
+qdef vagrant(cmd):
     """ send a command to the vagrant box """
     local("vagrant ssh -c 'cd /vagrant && {}'".format(cmd))
