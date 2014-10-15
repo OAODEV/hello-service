@@ -123,6 +123,6 @@ def make_image_name(build_name=''):
 
     return image_name
 
-qdef vagrant(cmd):
+def vagrant(cmd):
     """ send a command to the vagrant box """
     local("vagrant ssh -c 'cd /vagrant && {}'".format(cmd))
