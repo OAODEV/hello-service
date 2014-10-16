@@ -9,7 +9,7 @@ Clone this project with
     
 Update common ops files by running this command in the project root.
 
-    curl https://gist.githubusercontent.com/oaojesse/2320739caf2e4c735542/raw/5a3ea060318dbedecae51bbaa2a0cbe169ebdf53/update_common.sh | sh
+    curl https://gist.githubusercontent.com/oaojesse/2320739caf2e4c735542/raw/355c434de3efe58ec2e0723c32069f742f00b3b4/update_common.sh | sh
     
 In order to work with the operations platform developers need to install [Vagrant](https://docs.vagrantup.com/v2/installation/)
 and [Fabric](http://www.fabfile.org/installing.html).
