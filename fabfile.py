@@ -97,7 +97,8 @@ def deploy(host, port):
 
 def build(image_name):
     """ build the Dockerfile with the given name """
-    vagrant("docker build -t {image_name} .".format(image_name=image_name))
+    local("vagrant ssh -c 'docker build -t {image_name} /vagrant'".format(
+        image_name=image_name))
 
 def make_image_name(build_name=''):
     """
