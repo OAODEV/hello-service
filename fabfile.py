@@ -2,6 +2,8 @@ import os
 from ConfigParser import ConfigParser
 from fabric.api import *
 
+env.use_ssh_config = True
+
 manifest = ConfigParser()
 manifest.read('Manifest')
 
