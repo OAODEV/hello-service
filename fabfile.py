@@ -128,4 +128,4 @@ def make_image_name(build_name=''):
 
 def vagrant(cmd):
     """ send a command to the vagrant box """
-    local("vagrant ssh -c 'cd /vagrant && {}'".format(cmd))
+    local("vagrant ssh -c '{}'".format(cmd))
