@@ -102,6 +102,13 @@ def build(image_name):
     local("vagrant ssh -c 'docker build -t {image_name} /vagrant'".format(
         image_name=image_name))
 
+def clean():
+    """ remove all docker images and containers from the vagrant env """
+    vagrant("docker stop `docker ps -aq`")
+    vagrant("docker rm `docker ps -aq`")
+    vagrant("docker rmi `docker images -aq`")
+    print "Environment clean of old docker artifacts."
+
 def make_image_name(build_name=''):
     """
     make an image name based on the given build name and current git state
