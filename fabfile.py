@@ -14,9 +14,6 @@ service_port = manifest.get('Service', 'service_port')
 
 registry_host_addr = 'qa.iadops.com/r/'
 
-REGISTRY_HOST = registry_host_addr.split(':')[0]
-REGISTRY_PORT = registry_host_addr.split(':')[1]
-
 def up():
     """ Bring up the local dev environment """
     local('vagrant up')
