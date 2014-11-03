@@ -7,7 +7,7 @@ curl -sSL https://get.docker.io/ubuntu/ | sudo sh
 usermod -g docker vagrant
 
 # install registry cert
-CERT = "-----BEGIN CERTIFICATE-----
+CERT="-----BEGIN CERTIFICATE-----
 MIID7TCCAtWgAwIBAgIJAO/As4eaf7Q6MA0GCSqGSIb3DQEBCwUAMIGMMQswCQYD
 VQQGEwJVUzERMA8GA1UECAwITmV3IFlvcmsxETAPBgNVBAcMCE5ldyBZb3JrMQww
 CgYDVQQKDANPQU8xDzANBgNVBAsMBkJUU0RFVjEVMBMGA1UEAwwMci5pYWRvcHMu
@@ -31,4 +31,5 @@ H3gz4vWuBn8XFWPjlDUmF6UzquI+Qjyqz4FUq3XRdb0pc2V4JCvpzJhjPkVb2ZiS
 6Dxh5QX1XKXPuz3g4roeBIzSb1Cd8nGleVnE4I2zXaQVJH3qXJKueBqUj24ER0GI
 ZA==
 -----END CERTIFICATE-----"
+mkdir -p /etc/docker/certs.d/r.iadops.com/
 echo $CERT > /etc/docker/certs.d/r.iadops.com/ca.crt
