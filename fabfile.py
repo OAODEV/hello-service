@@ -88,11 +88,6 @@ def integrate(build_name=None):
     # push passed code changes to current branch
     local("git push -u hub {}".format(branch))
 
-    # install registry cert
-    cert_folder = "/etc/docker/certs.d/r.iadops.com"
-    vagrant("mkdir -p {}".format(cert_folder))
-    vagrant("echo '{}' > {}/ca.crt".format(registry_cert, cert_folder))
-
     # push passed image to the docker index
     image_name = make_image_name(build_name)
     vagrant("docker push {image_name}".format(image_name=image_name))
