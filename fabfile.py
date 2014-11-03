@@ -90,8 +90,8 @@ def integrate(build_name=None):
 
     # install registry cert
     cert_folder = "/etc/docker/certs.d/r.iadops.com"
-    vagrant("mkdir -p {}".format(cert_location))
-    vagrant("echo '{}' > {}/ca.crt".format(registry_cert, cert_location))
+    vagrant("mkdir -p {}".format(cert_folder))
+    vagrant("echo '{}' > {}/ca.crt".format(registry_cert, cert_folder))
 
     # push passed image to the docker index
     image_name = make_image_name(build_name)
