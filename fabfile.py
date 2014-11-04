@@ -11,7 +11,7 @@ service_name = manifest.get('Service', 'name')
 unittest_cmd = manifest.get('Service', 'unittest_cmd')
 service_port = manifest.get('Service', 'service_port')
 
-registry_host_addr = 'qa.iadops.com:5000'
+registry_host_addr = 'r.iadops.com'
 
 def up():
     """ Bring up the local dev environment """
