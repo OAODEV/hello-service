@@ -12,6 +12,7 @@ and therefor is installed when docker builds the image. This is defined
 in the Dockerfile.
 
 """
+
 from hellolib import hello
 
 class HelloHandler(SocketServer.StreamRequestHandler):
