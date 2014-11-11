@@ -67,8 +67,8 @@ def integrate(build_name=None):
     image_name = make_image_name(build_name)
     vagrant("docker push {image_name}".format(image_name=image_name))
 
-    #TODO trigger acceptance testing in the Build server
-    run("curl localhost:5001/{}?{}".format(image_name, accept_command))
+    with settings(host_string='r.iadops.com'):
+        run("curl localhost:5001/{}?{}".format(image_name, accept_command))
 
     if os.path.exists("./success_art.txt"):
         with open("./success_art.txt", 'r') as art:
