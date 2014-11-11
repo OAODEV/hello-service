@@ -1,4 +1,5 @@
 import os
+import urllib2
 from ConfigParser import ConfigParser
 from fabric.api import *
 
@@ -9,6 +10,7 @@ manifest.read('Manifest')
 
 service_name = manifest.get('Service', 'name')
 unittest_cmd = manifest.get('Service', 'unittest_cmd')
+accept_command = manifest.get('Service', 'accept_cmd')
 service_port = manifest.get('Service', 'service_port')
 
 registry_host_addr = 'r.iadops.com'
@@ -65,11 +67,13 @@ def integrate(build_name=None):
     image_name = make_image_name(build_name)
     vagrant("docker push {image_name}".format(image_name=image_name))
 
+    #TODO trigger acceptance testing in the Build server
+    run("curl localhost:5001/{}?{}".format(image_name, accept_command))
+
     if os.path.exists("./success_art.txt"):
         with open("./success_art.txt", 'r') as art:
             print art.read()
 
-    #TODO trigger acceptance testing in the Build server
 
 def deploy(host, port):
     """
