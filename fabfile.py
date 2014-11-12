@@ -28,7 +28,7 @@ def ssh(build_name=None):
     image_name = make_image_name(build_name)
     vagrant("docker run -i -t {} /bin/bash".format(image_name))
 
-def test(command=unittest_cmd, build_name=None):
+def test(build_name=None, command=unittest_cmd):
     """ Run the unit tests in a local build """
     image_name = make_image_name(build_name)
     build(image_name)
@@ -37,7 +37,7 @@ def test(command=unittest_cmd, build_name=None):
 
 def accept(build_name=None):
     """ Run the accpetance tests in a local build """
-    test(accept_cmd)
+    test(command=accept_cmd)
 
 def integrate(build_name=None):
     """
