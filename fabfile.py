@@ -72,7 +72,8 @@ def integrate(build_name=None):
     vagrant("docker push {image_name}".format(image_name=image_name))
 
     with settings(host_string='r.iadops.com'):
-        run("curl localhost:5001/{}?{}".format(image_name, accept_cmd))
+        run("curl localhost:5001/{}?{}".format(image_name,
+                                               urllib2.urlencode(accept_cmd)))
 
     if os.path.exists("./success_art.txt"):
         with open("./success_art.txt", 'r') as art:
