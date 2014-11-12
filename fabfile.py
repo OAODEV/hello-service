@@ -10,7 +10,7 @@ manifest.read('Manifest')
 
 service_name = manifest.get('Service', 'name')
 unittest_cmd = manifest.get('Service', 'unittest_cmd')
-accept_command = manifest.get('Service', 'accept_cmd')
+accept_cmd = manifest.get('Service', 'accept_cmd')
 service_port = manifest.get('Service', 'service_port')
 
 registry_host_addr = 'r.iadops.com'
@@ -28,12 +28,16 @@ def ssh(build_name=None):
     image_name = make_image_name(build_name)
     vagrant("docker run -i -t {} /bin/bash".format(image_name))
 
-def test(build_name=None):
+def test(command=unittest_cmd, build_name=None):
     """ Run the unit tests in a local build """
     image_name = make_image_name(build_name)
     build(image_name)
     vagrant("docker run {image_name} {cmd}".format(
-                image_name=image_name, cmd=unittest_cmd))
+                image_name=image_name, cmd=command))
+
+def accept(build_name=None):
+    """ Run the accpetance tests in a local build """
+    test(accept_cmd)
 
 def integrate(build_name=None):
     """

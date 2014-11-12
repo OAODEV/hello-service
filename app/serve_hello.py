@@ -36,5 +36,8 @@ when the container is run that container will be listening on port
 """
 httpd = SocketServer.TCPServer(("", 8000), HelloHandler)
 
-if __name__ == "__main__":
+def main():
     httpd.serve_forever()
+
+if __name__ == "__main__":
+    main()

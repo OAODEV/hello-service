@@ -15,7 +15,7 @@ name=hello
 unittest_cmd=python test_hello_service.py
 
 # The command that will run the acceptance tests. Just like unittest_cmd
-accept_cmd=true
+accept_cmd=python accept_hello_service.py
 
 # The port that will be exposed by the container. The platform will use
 # this to set up routing between services during orchistration.
