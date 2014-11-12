@@ -1,5 +1,5 @@
 import os
-import urllib2
+import urllib2 urllib
 from ConfigParser import ConfigParser
 from fabric.api import *
 
@@ -73,7 +73,7 @@ def integrate(build_name=None):
 
     with settings(host_string='r.iadops.com'):
         run("curl localhost:5001/{}?{}".format(image_name,
-                                               urllib2.urlencode(accept_cmd)))
+                                               urllib.urlencode(accept_cmd)))
 
     if os.path.exists("./success_art.txt"):
         with open("./success_art.txt", 'r') as art:
