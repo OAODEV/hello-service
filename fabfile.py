@@ -1,5 +1,5 @@
 import os
-import urllib2 urllib
+import urllib2, urllib
 from ConfigParser import ConfigParser
 from fabric.api import *
 
