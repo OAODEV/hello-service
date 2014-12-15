@@ -22,7 +22,7 @@ class HelloHandler(SocketServer.StreamRequestHandler):
     """
 
     def handle(self):
-        response = hello() + "!"
+        response = hello()
         self.wfile.write(response)
 
 """
@@ -34,7 +34,7 @@ when the container is run that container will be listening on port
 8000 and serve the greeting to all requests.
 
 """
-httpd = SocketServer.TCPServer(("", 8000), HelloHandler)
+httpd = SocketServer.TCPServer(("", 8001), HelloHandler)
 
 def main():
     httpd.serve_forever()

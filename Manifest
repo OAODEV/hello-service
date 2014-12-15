@@ -19,4 +19,4 @@ accept_cmd=python accept_hello_service.py
 
 # The port that will be exposed by the container. The platform will use
 # this to set up routing between services during orchistration.
-service_port=8000
+service_port=8001
