@@ -22,7 +22,7 @@ class HelloHandler(SocketServer.StreamRequestHandler):
     """
 
     def handle(self):
-        response = hello()
+        response = hello() + "!"
         self.wfile.write(response)
 
 """
