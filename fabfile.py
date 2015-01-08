@@ -44,6 +44,9 @@ def integrate(build_name=None):
 
     """
 
+    # fetch remote branch references and deletes outdated remote branch names
+    local("git remote update --prune hub")
+
     # Merge any new mainline changes
     local("git pull hub mainline")
 
@@ -71,7 +74,6 @@ def integrate(build_name=None):
     if os.path.exists("./success_art.txt"):
         with open("./success_art.txt", 'r') as art:
             print art.read()
-
 
 def deploy(host, port):
     """
@@ -125,7 +127,7 @@ def clean():
     """ remove all docker images and containers from the vagrant env """
     on_build_host("docker rm `docker ps -aq`")
     on_build_host("docker rmi `docker images -aq`")
-    print "Environment clean of docker artifacts."
+    print "Environment clean of stopped docker artifacts."
 
 def make_image_name(build_name=''):
     """
