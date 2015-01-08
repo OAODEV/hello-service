@@ -1,5 +1,6 @@
 import os
-import urllib2, urllib
+import urllib
+import getpass
 from ConfigParser import ConfigParser
 from fabric.api import *
 
@@ -14,25 +15,18 @@ accept_cmd = manifest.get('Service', 'accept_cmd')
 service_port = manifest.get('Service', 'service_port')
 
 registry_host_addr = 'r.iadops.com'
-
-def up():
-    """ Bring up the local dev environment """
-    local('vagrant up')
-
-def down():
-    """ Destroy the local dev environment """
-    local('vagrant destroy')
+build_host_addr = 'qa.iadops.com'
 
 def ssh(build_name=None):
     """ start the container and drop the user into a shell """
     image_name = make_image_name(build_name)
-    vagrant("docker run -i -t {} /bin/bash".format(image_name))
+    on_build_host("docker run -i -t {} /bin/bash".format(image_name))
 
 def test(build_name=None, command=unittest_cmd):
     """ Run the unit tests in a local build """
     image_name = make_image_name(build_name)
     build(image_name)
-    vagrant("docker run {image_name} {cmd}".format(
+    on_build_host("docker run {image_name} {cmd}".format(
                 image_name=image_name, cmd=command))
 
 def accept(build_name=None):
@@ -69,9 +63,9 @@ def integrate(build_name=None):
 
     # push passed image to the docker index
     image_name = make_image_name(build_name)
-    vagrant("docker push {image_name}".format(image_name=image_name))
+    on_build_host("docker push {image_name}".format(image_name=image_name))
 
-    with settings(host_string='r.iadops.com'):
+    with settings(host_string=registry_host_addr):
         run("curl localhost:5001/{}?{}".format(image_name,
                                                urllib.quote(accept_cmd)))
 
@@ -94,7 +88,7 @@ def deploy(host, port):
     image_name = make_image_name(None)
 
     build(image_name)
-    vagrant("docker push {image_name}".format(image_name=image_name))
+    on_build_host("docker push {image_name}".format(image_name=image_name))
 
     with settings(host_string=host):
         run("docker run -d -p {port}:{docker_port} {image_name}".format(
@@ -103,16 +97,35 @@ def deploy(host, port):
     print "* {} is now available at {}:{}".format(service_name ,host, port)
 
 def build(image_name):
-    """ build the Dockerfile with the given name """
-    local("vagrant ssh -c 'docker build -t {image_name} /vagrant'".format(
-        image_name=image_name))
+    """ build the Dockerfile with the given name
+
+        Once we have environment management built into the system we will be
+        able to build services from only things that are git tracked, but for
+        now we need to build them from whatever happens to be in the current
+        repo to allow us to add configuration files to the containers we build
+
+        When all configuration is read from environment varriables and is set up
+        at runtime this can change and become more streamlined.
+
+    """
+
+    # copy current project directory to the build server
+
+    user = getpass.getuser()
+    build_path = "/build/{}/{}".format(user, service_name)
+    on_build_host("mkdir -p {}".format(build_path))
+
+    local("rsync -r -e ssh --delete ./ {}:{}".format(
+        build_host_addr, build_path))
+
+    on_build_host("docker build -t {} {}".format(
+        image_name, build_path))
 
 def clean():
     """ remove all docker images and containers from the vagrant env """
-    vagrant("docker stop `docker ps -aq`")
-    vagrant("docker rm `docker ps -aq`")
-    vagrant("docker rmi `docker images -aq`")
-    print "Environment clean of old docker artifacts."
+    on_build_host("docker rm `docker ps -aq`")
+    on_build_host("docker rmi `docker images -aq`")
+    print "Environment clean of docker artifacts."
 
 def make_image_name(build_name=''):
     """
@@ -138,6 +151,7 @@ def make_image_name(build_name=''):
 
     return image_name
 
-def vagrant(cmd):
-    """ send a command to the vagrant box """
-    local("vagrant ssh -c '{}'".format(cmd))
+def on_build_host(cmd):
+    """ send a command to the remote build machine with docker installed """
+    with settings(host_string=build_host_addr):
+        run(cmd)

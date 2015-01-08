@@ -6,13 +6,12 @@ An example service project outlining our DevOps setup
 Clone this project with
 
     git clone -o hub -b mainline git@github.com:OAODEV/helloService.git
-    
+
 Update common ops files by running this command in the project root.
 
-    curl https://gist.githubusercontent.com/oaojesse/2320739caf2e4c735542/raw/355c434de3efe58ec2e0723c32069f742f00b3b4/update_common.sh | sh
-    
-In order to work with the operations platform developers need to install [Vagrant](https://docs.vagrantup.com/v2/installation/)
-and [Fabric](http://www.fabfile.org/installing.html).
+    curl https://gist.githubusercontent.com/oaojesse/2320739caf2e4c735542/raw/78b97c71db858862e2dcad7b326063063f000644/update_common.sh | sh
+
+In order to work with the operations platform developers need to install [Fabric](http://www.fabfile.org/installing.html).
 
 The Service
 -----------
@@ -53,19 +52,4 @@ are documented in the Manifest file
 
 This file provides the automation that runs the different development
 tasks in a way that is compatible with the operations platform. It is
-the entrypoint to the platform.
-
-### Vagrantfile
-
-This file describes how to create the VM we use to run docker on the
-development laptops. This file should not change very frequently if at
-all
-
-### bootstrap.sh
-
-The `Vagrantfile` runs bootstrap.sh to set up the VM. This won't change
-frequently if at all either.
-
-*both `vagrantfile` and `bootstrap.sh` only set up a local VM for the
-purpose of running docker. Nothing about the VM environment will be
-relevant to the resulting container environment.*
+the entry point to the platform.
