@@ -115,7 +115,9 @@ def build(image_name):
     build_path = "/build/{}/{}".format(user, service_name)
     on_build_host("mkdir -p {}".format(build_path))
 
-    local("rsync -rl -e ssh --delete ./ {}:{}".format(
+    # ignore .git folder in rsync command
+
+    local("rsync -rlvz --exclude .git -e ssh --delete ./ {}:{}".format(
         build_host_addr, build_path))
 
     on_build_host("docker build -t {} {}".format(
