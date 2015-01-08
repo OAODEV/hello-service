@@ -1,6 +1,5 @@
 import os
 import urllib
-import getpass
 from ConfigParser import ConfigParser
 from fabric.api import *
 
@@ -111,8 +110,7 @@ def build(image_name):
 
     # copy current project directory to the build server
 
-    user = getpass.getuser()
-    build_path = "/build/{}/{}".format(user, service_name)
+    build_path = "/build/{}/{}".format(env.user, service_name)
     on_build_host("mkdir -p {}".format(build_path))
 
     # ignore .git folder in rsync command
