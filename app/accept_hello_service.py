@@ -14,7 +14,7 @@ class AcceptHello(unittest.TestCase):
 
 
     def test_service_says_hello(self):
-        response = urllib2.urlopen("http://localhost:8000")
+        response = urllib2.urlopen("http://localhost:8001")
         self.assertEqual(response.code, 200)
 
         text = response.read()
