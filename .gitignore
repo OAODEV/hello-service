@@ -1,3 +1,5 @@
+*/settings.sh
+
 .vagrant/*
 *.pyc
 

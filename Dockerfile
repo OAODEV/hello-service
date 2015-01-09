@@ -21,11 +21,16 @@ RUN pip install git+https://github.com/OAODEV/hellolib.git
 
 # This copies the project folder (from outside docker) into /app
 # inside the container's filesystem
-ADD . /app
+ADD . /hello
 
 # Run all commands from this folder. This is where the service will be
 # located after the last step copies the files in.
-WORKDIR /app/app
+WORKDIR /hello/app
+
+# until we get the automatic release management set up I'm having the Dockerfile
+# handle setting environment variables from a settings file
+RUN ls -al
+RUN if ./ settings.sh; then echo "installed settings"; else echo "no settings found"; fi
 
 # the default command to run when running this container. This should
 # be the command to run the service as it will be what runs when the

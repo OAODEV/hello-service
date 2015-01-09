@@ -1,4 +1,5 @@
 import os
+import time
 import urllib
 from ConfigParser import ConfigParser
 from fabric.api import *
@@ -79,6 +80,11 @@ def deploy(host, port):
     """
     deploy the service
 
+    We deploy releases.
+    A release is the code tracked in github plus config. Therefore it should
+    have a name that differentiates it from a build, which for now is only used
+    for testing.
+
     host: the url or ip of the machine to run the service on
     port: the port on the host to bind the service to
 
@@ -86,14 +92,15 @@ def deploy(host, port):
 
     print "* Deploying to {}:{}".format(host, port)
 
-    image_name = make_image_name(None)
+    release_name = "{}_release_{}".format(
+        time.time(), make_image_name(None))
 
-    build(image_name)
-    on_build_host("docker push {image_name}".format(image_name=image_name))
+    build(release_name)
+    on_build_host("docker push {}".format(release_name))
 
     with settings(host_string=host):
-        run("docker run -d -p {port}:{docker_port} {image_name}".format(
-            port=port, docker_port=service_port, image_name=image_name))
+        run("docker run -d -p {port}:{docker_port} {release_name}".format(
+            port=port, docker_port=service_port, release_name=release_name))
 
     print "* {} is now available at {}:{}".format(service_name ,host, port)
 

@@ -3,6 +3,7 @@ The service responds to requests with a greeting using the built in
 python http modules.
 
 """
+import os
 import SocketServer
 
 """
@@ -23,7 +24,8 @@ class HelloHandler(SocketServer.StreamRequestHandler):
 
     def handle(self):
         response = hello()
-        self.wfile.write(response)
+        template = os.environ.get('HELLO_TEMPLATE', "{}")
+        self.wfile.write(template.format(response))
 
 """
 When this file is run, a TCP server will listen on port 8000 and serve
