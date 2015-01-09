@@ -92,15 +92,15 @@ def deploy(host, port):
 
     print "* Deploying to {}:{}".format(host, port)
 
-    release_name = "{}_release_{}".format(
-        time.time(), make_image_name(None))
+    release_name = "release_{}".format(time.time())
+    image_name = make_image_name(release_name)
 
-    build(release_name)
-    on_build_host("docker push {}".format(release_name))
+    build(image_name)
+    on_build_host("docker push {}".format(image_name))
 
     with settings(host_string=host):
-        run("docker run -d -p {port}:{docker_port} {release_name}".format(
-            port=port, docker_port=service_port, release_name=release_name))
+        run("docker run -d -p {port}:{docker_port} {image_name}".format(
+            port=port, docker_port=service_port, image_name=image_name))
 
     print "* {} is now available at {}:{}".format(service_name ,host, port)
 

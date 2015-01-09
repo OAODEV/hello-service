@@ -28,9 +28,8 @@ ADD . /hello
 WORKDIR /hello/app
 
 # until we get the automatic release management set up I'm having the Dockerfile
-# handle setting environment variables from a settings file
-RUN ls -al
-RUN if ./ settings.sh; then echo "installed settings"; else echo "no settings found"; fi
+# handle setting environment variables
+ENV HELLO_TEMPLATE <!DOCTYPE html><html><head><title>hello</title></head><body>{}</body></html>
 
 # the default command to run when running this container. This should
 # be the command to run the service as it will be what runs when the

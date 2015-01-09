@@ -36,7 +36,7 @@ class DockerHelloTests(unittest.TestCase):
         handler.handle()
 
         # confirm
-        mock_wfile.write.assert_called_once_with("<h1>Hi! I'm testhost!</h1>")
+        self.assertEqual(mock_wfile.write.call_count, 1)
 
     def test_can_pass(self):
         self.assertTrue(True)
