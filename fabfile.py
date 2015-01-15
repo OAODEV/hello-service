@@ -102,7 +102,7 @@ def deploy(host, port):
         run("docker run -d -p {port}:{docker_port} {image_name}".format(
             port=port, docker_port=service_port, image_name=image_name))
 
-    print "* {} is now available at {}:{}".format(service_name ,host, port)
+    print "* {} was run at {}:{}".format(service_name ,host, port)
 
 def build(image_name):
     """ build the Dockerfile with the given name
