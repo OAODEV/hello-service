@@ -6,7 +6,7 @@ from fabric.api import *
 
 env.use_ssh_config = True
 
-manifest = ConfigParser()
+manifest = ConfigParser(allow_no_value=True)
 manifest.read('Manifest')
 
 service_name = manifest.get('Service', 'name')
@@ -23,11 +23,21 @@ def ssh(build_name=None):
     on_build_host("docker run -i -t {} /bin/bash".format(image_name))
 
 def test(build_name=None, command=unittest_cmd):
-    """ Run the unit tests in a local build """
+    """
+    Run the unit tests in a local build
+
+    """
+
+    # build new images
     image_name = make_image_name(build_name)
     build(image_name)
-    on_build_host("docker run {image_name} {cmd}".format(
-                image_name=image_name, cmd=command))
+
+    # calculate the flags for the test environment from unittest.config
+    e_flags = get_e_flags("qa.iadops.com", "unittest.conf")
+
+    # run the image with the tests
+    on_build_host("docker run {e_flags} {image_name} {cmd}".format(
+                e_flags=e_flags, image_name=image_name, cmd=command))
 
 def accept(build_name=None):
     """ Run the accpetance tests in a local build """
@@ -76,44 +86,52 @@ def integrate(build_name=None):
         with open("./success_art.txt", 'r') as art:
             print art.read()
 
-def deploy(host, port):
+def deploy(host, port, image_name, conf_path, release_name=''):
     """
-    deploy the service
-
-    We deploy releases.
-    A release is the code tracked in github plus config. Therefore it should
-    have a name that differentiates it from a build, which for now is only used
-    for testing.
+    Create a release from the image and conf then run on the host
 
     host: the url or ip of the machine to run the service on
     port: the port on the host to bind the service to
+    image_name: the name of the docker image to deploy
+    conf_path: path to the config file for this release
+    release_name: Optional name for the release. (default is the conf filename)
 
     """
 
     print "* Deploying to {}:{}".format(host, port)
 
-    release_name = "release_{}".format(time.time())
-    image_name = make_image_name(release_name)
+    e_flags = get_e_flags(host, conf_path)
 
-    build(image_name)
-    on_build_host("docker push {}".format(image_name))
+    # if there is a release name add the appropriate flag
+    if release_name:
+        name_flag = "--name {}".format(release_name)
+    else:
+        name_flag = ''
+
+    # set up p (port) flag
+    p_flag = "-p {}:{}".format(port, service_port)
 
     with settings(host_string=host):
-        run("docker run -d -p {port}:{docker_port} {image_name}".format(
-            port=port, docker_port=service_port, image_name=image_name))
+        run("docker run -d {name_flag} {p_flag} {e_flags} {image_name}".format(
+              name_flag=name_flag,
+              p_flag=p_flag,
+              e_flags=e_flags,
+              image_name=image_name
+            ))
 
-    print "* {} was run at {}:{}".format(service_name ,host, port)
+    print "* {} was run at {}:{}".format(service_name, host, port)
 
 def build(image_name):
-    """ build the Dockerfile with the given name
+    """
+    build the Dockerfile with the given name
 
-        Once we have environment management built into the system we will be
-        able to build services from only things that are git tracked, but for
-        now we need to build them from whatever happens to be in the current
-        repo to allow us to add configuration files to the containers we build
+    Once we have environment management built into the system we will be
+    able to build services from only things that are git tracked, but for
+    now we need to build them from whatever happens to be in the current
+    repo to allow us to add configuration files to the containers we build
 
-        When all configuration is read from environment varriables and is set up
-        at runtime this can change and become more streamlined.
+    When all configuration is read from environment varriables and is set up
+    at runtime this can change and become more streamlined.
 
     """
 
@@ -136,11 +154,35 @@ def clean():
     on_build_host("docker rmi `docker images -aq`")
     print "Environment clean of stopped docker artifacts."
 
-def make_image_name(build_name=''):
-    """
-    make an image name based on the given build name and current git state
+def get_e_flags(host, conf_path):
 
-    """
+    # parse conf file for environment variables
+    Config = ConfigParser()
+    Config.read(conf_path)
+    config_pairs = Config.items("Conf")
+
+    # get envar dependencies from Manifest
+    envar_deps = manifest.items("Dependencies")
+
+    # find out what the host has set for the dependent variables
+    def fill_in_value_from_host(config_pair):
+        """ given a config pair, fill in the value with the host value """
+        with settings(host_string=host):
+            env_string = run("env | grep ^{}".format(
+                config_pair[0].capitalize()))
+
+        return tuple(env_string.split('='))
+
+    envar_pairs = map(fill_in_value_from_host, envar_deps)
+
+    # return string of `-e` options for docker command
+    def make_e_flag(pair):
+        return "-e {}={}".format(*pair)
+
+    return ' '.join(map(make_e_flag, config_pairs + envar_pairs))
+
+def make_image_name(build_name=''):
+    """ make an image name from the build name and git state """
 
     # ensure that the name of the resulting image matches the git
     # checkout in either the commit hash or a tag

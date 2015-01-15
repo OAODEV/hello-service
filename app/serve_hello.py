@@ -24,7 +24,7 @@ class HelloHandler(SocketServer.StreamRequestHandler):
 
     def handle(self):
         response = hello()
-        template = os.environ.get('HELLO_TEMPLATE', "{}")
+        template = os.environ.get('hello_template', "{}")
         self.wfile.write(template.format(response))
 
 """

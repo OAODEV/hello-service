@@ -27,10 +27,6 @@ ADD . /hello
 # located after the last step copies the files in.
 WORKDIR /hello/app
 
-# until we get the automatic release management set up I'm having the Dockerfile
-# handle setting environment variables
-ENV HELLO_TEMPLATE <!DOCTYPE html><html><head><title>hello</title></head><body>{}</body></html>
-
 # the default command to run when running this container. This should
 # be the command to run the service as it will be what runs when the
 # operations platform deploys the service.

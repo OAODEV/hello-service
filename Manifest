@@ -20,3 +20,9 @@ accept_cmd=python accept_hello_service.py
 # The port that will be exposed by the container. The platform will use
 # this to set up routing between services during orchistration.
 service_port=8001
+
+# this service relies on certain envars to be present in the environment
+# all of the names here will be downcased then capitalized to enforce the
+# envar naming standard
+[Dependencies]
+Environment_name
