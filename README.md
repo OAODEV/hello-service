@@ -48,6 +48,9 @@ This file describes to the operations platform certain specifics about
 the service that the platform needs in order to work with it. Details
 are documented in the Manifest file
 
+Each `Dockerfile` must put the `Manifest` at `/Manifest` so that the
+platform may access it in a known location.
+
 ### fabfile.py
 
 This file provides the automation that runs the different development
