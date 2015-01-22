@@ -23,6 +23,9 @@ RUN pip install git+https://github.com/OAODEV/hellolib.git
 # inside the container's filesystem
 ADD . /hello
 
+# Add the Manifest to /Manifest as required by the platform
+ADD Manifest /Manifest
+
 # Run all commands from this folder. This is where the service will be
 # located after the last step copies the files in.
 WORKDIR /hello/app
