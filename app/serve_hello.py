@@ -23,9 +23,9 @@ class HelloHandler(SocketServer.StreamRequestHandler):
     """
 
     def handle(self):
-        response = hello()
-        template = os.environ.get('hello_template', "{}")
-        self.wfile.write(template.format(response))
+        template = "<h1>{}</h1><h2>from: {}</h2>"
+        self.wfile.write(template.format(hello(),
+                                         os.environ['Environment_name']))
 
 """
 When this file is run, a TCP server will listen on port 8000 and serve
@@ -33,7 +33,7 @@ the greeting to all requests.
 
 The Dockerfile defines this as the service to run by default, therefor
 when the container is run that container will be listening on port
-8000 and serve the greeting to all requests.
+8001 and serve the greeting to all requests.
 
 """
 httpd = SocketServer.TCPServer(("", 8001), HelloHandler)

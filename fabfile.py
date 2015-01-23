@@ -11,7 +11,9 @@ manifest.read('Manifest')
 
 service_name = manifest.get('Service', 'name')
 unittest_cmd = manifest.get('Service', 'unittest_cmd')
-accept_cmd = manifest.get('Service', 'accept_cmd')
+# @TODO bring back in the acceptance test automation. This may be the group of
+# tests that the depandant clients write (client driven contracts).
+# accept_cmd = manifest.get('Service', 'accept_cmd')
 service_port = manifest.get('Service', 'service_port')
 
 registry_host_addr = 'r.iadops.com'
@@ -24,7 +26,7 @@ def ssh(build_name=None):
 
 def test(build_name=None, command=unittest_cmd):
     """
-    Run the unit tests in a local build
+    Run the unit tests in a build
 
     """
 
@@ -32,16 +34,9 @@ def test(build_name=None, command=unittest_cmd):
     image_name = make_image_name(build_name)
     build(image_name)
 
-    # calculate the flags for the test environment from unittest.config
-    e_flags = get_e_flags("qa.iadops.com", "unittest.conf")
-
     # run the image with the tests
-    on_build_host("docker run {e_flags} {image_name} {cmd}".format(
-                e_flags=e_flags, image_name=image_name, cmd=command))
-
-def accept(build_name=None):
-    """ Run the accpetance tests in a local build """
-    test(command=accept_cmd)
+    on_build_host("docker run {image_name} {cmd}".format(
+        image_name=image_name, cmd=command))
 
 def integrate(build_name=None):
     """

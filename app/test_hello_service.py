@@ -17,10 +17,13 @@ from serve_hello import HelloHandler
 class DockerHelloTests(unittest.TestCase):
 
     def setUp(self):
-        pass
+        # set up expected/dependant envars
+        os.environ['message'] = "test message"
+        os.environ['Environment_name'] = "test"
 
     def tearDown(self):
-        pass
+        del os.environ['message']
+        del os.environ['Environment_name']
 
     def test_envars_are_set(self):
         """
@@ -32,8 +35,6 @@ class DockerHelloTests(unittest.TestCase):
         """
 
         self.assertTrue("Environment_name" in os.environ)
-        self.assertEqual("<h1>Hi! I'm {hostname} in {env_name}!!</h1>",
-                         os.environ['template'])
 
     def test_hello_handler(self):
         # set up
@@ -46,6 +47,8 @@ class DockerHelloTests(unittest.TestCase):
 
         # confirm
         self.assertEqual(mock_wfile.write.call_count, 1)
+        expected_string = "<h1>test message</h1><h2>from: test</h2>"
+        mock_wfile.write.assertCalledOnceWith(expected_string)
 
     def test_can_pass(self):
         self.assertTrue(True)
