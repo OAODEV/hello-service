@@ -1,7 +1,7 @@
 helloService
 ============
 
-An example service project outlining our DevOps setup
+An example service project outlining our DevOps project setup
 
 Clone this project with
 
