@@ -81,41 +81,6 @@ def integrate(build_name=None):
         with open("./success_art.txt", 'r') as art:
             print art.read()
 
-def deploy(host, port, image_name, conf_path, release_name=''):
-    """
-    Create a release from the image and conf then run on the host
-
-    host: the url or ip of the machine to run the service on
-    port: the port on the host to bind the service to
-    image_name: the name of the docker image to deploy
-    conf_path: path to the config file for this release
-    release_name: Optional name for the release. (default is the conf filename)
-
-    """
-
-    print "* Deploying to {}:{}".format(host, port)
-
-    e_flags = get_e_flags(host, conf_path)
-
-    # if there is a release name add the appropriate flag
-    if release_name:
-        name_flag = "--name {}".format(release_name)
-    else:
-        name_flag = ''
-
-    # set up p (port) flag
-    p_flag = "-p {}:{}".format(port, service_port)
-
-    with settings(host_string=host):
-        run("docker run -d {name_flag} {p_flag} {e_flags} {image_name}".format(
-              name_flag=name_flag,
-              p_flag=p_flag,
-              e_flags=e_flags,
-              image_name=image_name
-            ))
-
-    print "* {} was run at {}:{}".format(service_name, host, port)
-
 def build(image_name):
     """
     build the Dockerfile with the given name
@@ -142,39 +107,6 @@ def build(image_name):
 
     on_build_host("docker build -t {} {}".format(
         image_name, build_path))
-
-def clean():
-    """ remove all docker images and containers from the vagrant env """
-    on_build_host("docker rm `docker ps -aq`")
-    on_build_host("docker rmi `docker images -aq`")
-    print "Environment clean of stopped docker artifacts."
-
-def get_e_flags(host, conf_path):
-
-    # parse conf file for environment variables
-    Config = ConfigParser()
-    Config.read(conf_path)
-    config_pairs = Config.items("Conf")
-
-    # get envar dependencies from Manifest
-    envar_deps = manifest.items("Dependencies")
-
-    # find out what the host has set for the dependent variables
-    def fill_in_value_from_host(config_pair):
-        """ given a config pair, fill in the value with the host value """
-        with settings(host_string=host):
-            env_string = run("env | grep ^{}".format(
-                config_pair[0].capitalize()))
-
-        return tuple(env_string.split('='))
-
-    envar_pairs = map(fill_in_value_from_host, envar_deps)
-
-    # return string of `-e` options for docker command
-    def make_e_flag(pair):
-        return "-e {}={}".format(*pair)
-
-    return ' '.join(map(make_e_flag, config_pairs + envar_pairs))
 
 def make_image_name(build_name=''):
     """ make an image name from the build name and git state """
