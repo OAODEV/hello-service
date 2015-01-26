@@ -28,7 +28,7 @@ class HelloHandler(SocketServer.StreamRequestHandler):
                                          os.environ['Environment_name']))
 
 """
-When this file is run, a TCP server will listen on port 8000 and serve
+When this file is run, a TCP server will listen on port 8001 and serve
 the greeting to all requests.
 
 The Dockerfile defines this as the service to run by default, therefor
@@ -36,6 +36,7 @@ when the container is run that container will be listening on port
 8001 and serve the greeting to all requests.
 
 """
+
 httpd = SocketServer.TCPServer(("", 8001), HelloHandler)
 
 def main():

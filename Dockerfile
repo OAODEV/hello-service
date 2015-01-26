@@ -4,14 +4,14 @@
 FROM ubuntu:14.04
 
 # This simply identifies the maintainer of the container
-MAINTAINER jmiller@adops.com
+MAINTAINER jesse.miller@adops.com
 
 # each `RUN` statement applies a change to the container by executing
 # the command in the container. Here we first update the package manager
 # Then install a few external dependencies (python, pip, git and the
 # mock library).
 RUN sudo apt-get update
-RUN sudo apt-get install -y python python-pip git
+RUN sudo apt-get install -y python-pip git
 RUN pip install mock
 
 # this installs the internally developed dependency (hellolib).

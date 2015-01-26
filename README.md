@@ -16,8 +16,9 @@ In order to work with the operations platform developers need to install [Fabric
 The Service
 -----------
 
-The hello service runs a TCP server that says hello. It identifies its
-hostname or claims to be anonymous if there is no hostname.
+The hello service runs a TCP server that says hello. The greeting is readfrom
+the `greeting` envar. It will also say who it is from, taking the
+environment name form the environment it's deployed in.
 
 The service is contained in `app/serve_hello.py`. This file is heavily
 documented describing operations considerations.
@@ -56,3 +57,11 @@ platform may access it in a known location.
 This file provides the automation that runs the different development
 tasks in a way that is compatible with the operations platform. It is
 the entry point to the platform.
+
+### Config file
+
+This file is not part of the repository. It is passed to the deploy command and
+specifies the message that this helloService should send.
+
+    [Config]
+    message="Hello World."
