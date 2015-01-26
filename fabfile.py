@@ -13,7 +13,6 @@ service_name = manifest.get('Service', 'name')
 unittest_cmd = manifest.get('Service', 'unittest_cmd')
 # @TODO bring back in the acceptance test automation. This may be the group of
 # tests that the depandant clients write (client driven contracts).
-# accept_cmd = manifest.get('Service', 'accept_cmd')
 service_port = manifest.get('Service', 'service_port')
 
 registry_host_addr = 'r.iadops.com'
@@ -72,10 +71,6 @@ def integrate(build_name=None):
     # push passed image to the docker index
     image_name = make_image_name(build_name)
     on_build_host("docker push {image_name}".format(image_name=image_name))
-
-    with settings(host_string=registry_host_addr):
-        run("curl localhost:5001/{}?{}".format(image_name,
-                                               urllib.quote(accept_cmd)))
 
     if os.path.exists("./success_art.txt"):
         with open("./success_art.txt", 'r') as art:
