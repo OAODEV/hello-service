@@ -16,6 +16,17 @@ in the Dockerfile.
 
 from hellolib import hello
 
+import logging
+import sys
+
+log = logging.getLogger('hello')
+log.setLevel(logging.DEBUG)
+stdout_handler = logging.StreamHandler(sys.stdout)
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+stdout_handler.setFormatter(formatter)
+log.addHandler(stdout_handler)
+
 class HelloHandler(SocketServer.StreamRequestHandler):
     """
     Say hello to requesters using the built in python http modules.
@@ -23,9 +34,15 @@ class HelloHandler(SocketServer.StreamRequestHandler):
     """
 
     def handle(self):
+
+        log.info("Handling {} from ".format(self.rfile.readline().strip(),
+                                       self.client_address[0]))
+
         template = "<h1>{}</h1><h2>from: {}</h2>"
         self.wfile.write(template.format(hello(),
                                          os.environ['Environment_name']))
+
+        log.info("Greeting sent")
 
 """
 When this file is run, a TCP server will listen on port 8001 and serve
