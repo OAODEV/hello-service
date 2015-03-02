@@ -12,7 +12,7 @@ dependencies:
 test:
   override:
     - echo  $herd_build_tag
-    - docker run r.iadops.com/hello:$herd_build_tag python app/test_herd.py
+    - docker run r.iadops.com/hello:$herd_build_tag tree # python app/test_herd.py
 
 #deployment:
 #  index:
