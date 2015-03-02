@@ -1,0 +1,21 @@
+machine:
+  services:
+    - docker
+  environment:
+    herd_build_tag: `cat Version`_build.`echo $CIRCLE_SHA1 | cut -c1-7`
+
+dependencies:
+  override:
+    - docker info
+    - docker build -t r.iadops.com/hello:$herd_build_tag .
+
+test:
+  override:
+    - echo  $herd_build_tag
+    - docker run r.iadops.com/hello:$herd_build_tag python app/test_herd.py
+
+#deployment:
+#  index:
+#    branch: /.*/
+#    commands:
+#      - docker push r.iadops.com/hello:$herd_build_tag
