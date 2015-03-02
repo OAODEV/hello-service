@@ -2,7 +2,8 @@ machine:
   services:
     - docker
   environment:
-    herd_build_tag: $(echo `cat Version`)_build.$(echo $CIRCLE_SHA1 | cut -c1-7)
+    herd_build_tag: _build.$(echo $CIRCLE_SHA1 | cut -c1-7)
+    version: $(cat Version)
 
 dependencies:
   override:
@@ -13,7 +14,7 @@ dependencies:
 
 test:
   override:
-    - docker run r.iadops.com/hello:$herd_build_tag python test_hello_service.py
+    - docker run r.iadops.com/hello:$version$herd_build_tag python test_hello_service.py
 
 #deployment:
 #  index:
