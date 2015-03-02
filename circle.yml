@@ -9,6 +9,7 @@ dependencies:
   override:
     - cat Version
     - echo $herd_build_tag
+    - echo $version
     - docker info
     - docker build -t r.iadops.com/hello:$herd_build_tag .
 
