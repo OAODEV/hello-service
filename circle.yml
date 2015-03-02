@@ -9,7 +9,7 @@ machine:
 
 dependencies:
   override:
-    - sudoo mkdir -p /etc/docker/certs.d/r.iadops.com
+    - sudo mkdir -p /etc/docker/certs.d/r.iadops.com
     - curl https://gist.githubusercontent.com/oaojesse/a889c59be36675df7a2e/raw/2edec2d962953e45ae80597f404e5e56376e5f5a/gistfile1.txt > ~/a.crt
     - sudo mv ~/a.crt /etc/docker/certs.d/r.iadops.com/a.crt
     - echo $herd_build_tag
