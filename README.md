@@ -7,11 +7,6 @@ Clone this project with
 
     git clone -o hub -b mainline git@github.com:OAODEV/helloService.git
 
-Update common ops files by running this command in the project root.
-
-    curl https://gist.githubusercontent.com/oaojesse/2320739caf2e4c735542/raw/78b97c71db858862e2dcad7b326063063f000644/update_common.sh | sh
-
-In order to work with the operations platform developers need to install [Fabric](http://www.fabfile.org/installing.html).
 
 The Service
 -----------
@@ -52,11 +47,27 @@ are documented in the Manifest file
 Each `Dockerfile` must put the `Manifest` at `/Manifest` so that the
 platform may access it in a known location.
 
-### fabfile.py
+### Version
 
-This file provides the automation that runs the different development
-tasks in a way that is compatible with the operations platform. It is
-the entry point to the platform.
+This file simply holds the semantic version of the application at the commit.
+I'll be discussing how we want to handle the semantic version in the future so
+this is fairly likely to change.
+
+### circle.yml
+
+The configuration file for our CI Service. Just copy the file here into your
+project root, then update the `herd_service_name` and `herd_unittest_cmd` lines
+under `machine -> environment`
+
+    machine:
+      services:
+        - docker
+      environmnet:
+        herd_service_name: <service name>
+        herd_unittest_cmd: <unittest cmd>
+
+The `unittest cmd` and `service name` should be the same as in the `Manifest`
+file.
 
 ### Config file
 
