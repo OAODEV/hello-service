@@ -1,0 +1,29 @@
+# This file is in the classic .ini format
+# It requires the [Service] heading
+[Service]
+
+# The name of the service. This is how the platform will identify this
+# service in names of containers and possibly other places in the
+# future. It should be unique across all services on the platform
+# the name must contain characters in [a-z 0-9 - _ .]
+name=hello
+
+# The command that will run the unit tests. This will be executed by
+# fabric inside the container to test the container. The container and
+# code should be built such that this command properly tests the units
+# in the container.
+unittest_cmd=python test_hello_service.py
+
+# The command that will run the acceptance tests. Just like unittest_cmd.
+# @TOTO add back in accpetance testing. This still has some figuring out to do.
+# accept_cmd=python accept_hello_service.py
+
+# The port that will be exposed by the container. The platform will use
+# this to set up routing between services during orchistration.
+service_port=8001
+
+# this service relies on certain envars to be present in the environment
+# all of the names here will be downcased then capitalized to enforce the
+# envar naming standard
+[Dependencies]
+Environment_name
