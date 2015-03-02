@@ -6,12 +6,13 @@ machine:
 
 dependencies:
   override:
+    - cat Version
+    - echo  $herd_build_tag
     - docker info
     - docker build -t r.iadops.com/hello:$herd_build_tag .
 
 test:
   override:
-    - echo  $herd_build_tag
     - docker run r.iadops.com/hello:$herd_build_tag python test_hello_service.py
 
 #deployment:
