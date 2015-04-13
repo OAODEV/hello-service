@@ -10,8 +10,7 @@ MAINTAINER jesse.miller@adops.com
 # the command in the container. Here we first update the package manager
 # Then install a few external dependencies (python, pip, git and the
 # mock library).
-RUN sudo apt-get update
-RUN sudo apt-get install -y python-pip git
+RUN apt-get update && apt-get install -y python-pip git
 RUN pip install mock
 
 # this installs the internally developed dependency (hellolib).
