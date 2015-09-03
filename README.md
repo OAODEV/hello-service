@@ -78,7 +78,7 @@ It should be a file with one `<key>=<value>` statement per line.
 
 # Iterating and Deploying with herd
 
-## clone the repo
+## Clone the repo
 
     git clone git@github.com:OAODEV/hello-service.git
     cd hello-service
