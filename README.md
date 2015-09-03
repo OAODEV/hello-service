@@ -96,9 +96,11 @@ It should be a file with one `<key>=<value>` statement per line.
 
 This is currently a manual process. We go over to
 [CircleCI](https://circleci.com/gh/OAODEV/hello-service), click into our build
-then look for where it says `echo "The build name is in here!!!"
-r.iadops.com/$herd_service_name:$herd_build_tag`. It's in there and should look
-like this
+then look for where it says
+
+    `echo "The build name is in here!!!" r.iadops.com/$herd_service_name:$herd_build_tag`.
+    
+It's in there and should look like this.
 
     r.iadops.com/hello:<semver>_build.<hash>
 
