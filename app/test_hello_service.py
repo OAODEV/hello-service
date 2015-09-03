@@ -18,11 +18,11 @@ class DockerHelloTests(unittest.TestCase):
 
     def setUp(self):
         # set up expected/dependant envars
-        os.environ['message'] = "test message"
+        os.environ['greeting'] = "test message"
         os.environ['Environment_name'] = "test"
 
     def tearDown(self):
-        del os.environ['message']
+        del os.environ['greeting']
         del os.environ['Environment_name']
 
     def test_envars_are_set(self):
@@ -48,7 +48,7 @@ class DockerHelloTests(unittest.TestCase):
         # confirm
         self.assertEqual(mock_wfile.write.call_count, 1)
         expected_string = "<h1>test message</h1><h2>from: test</h2>"
-        mock_wfile.write.assertCalledOnceWith(expected_string)
+        mock_wfile.write.assert_called_once_with(expected_string)
 
     def test_can_pass(self):
         self.assertTrue(True)
