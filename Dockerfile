@@ -18,12 +18,11 @@ RUN pip install mock
 # between internal and external.
 RUN pip install git+https://github.com/OAODEV/hellolib.git
 
-# This copies the project folder (from outside docker) into /app
+# This copies the project folder (from outside docker) into /hello
 # inside the container's filesystem
 ADD . /hello
 
 # Add the Manifest to /Manifest where the platform will look at for it.
-# @TODO automate this (it's the same for every project
 ADD Manifest /Manifest
 
 # Run all commands from this folder. This is where the service will be
