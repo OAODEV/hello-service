@@ -34,7 +34,7 @@ For the most part, that means creating the environment, installing
 depandencies, putting files in place, setting envionment veriables and
 so on. The platform will use this file to build the container and
 provide that container with the command to run the service. The
-Dockerfile has more specific documentation.
+Dockerfile in this project has more specific documentation.
 
 More information on [docker containers](http://docs.docker.com/).
 
@@ -47,11 +47,11 @@ are documented in the Manifest file
 Each `Dockerfile` must put the `Manifest` at `/Manifest` so that the
 platform may access it in a known location.
 
+    ADD Manifest /Manifest
+
 ### Version
 
-This file simply holds the semantic version of the application at the commit.
-I'll be discussing how we want to handle the semantic version in the future so
-this is fairly likely to change.
+This file simply holds the semantic version of the application at the commit. Fully optional.
 
 ### circle.yml
 
@@ -72,7 +72,7 @@ file.
 ### Config file
 
 This file is not part of the repository. It is passed to the deploy command and
-specifies the message that this helloService should send.
+for this project specifies the message that this helloService should send.
 
     [Config]
     message="Hello World."
