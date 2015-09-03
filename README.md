@@ -75,3 +75,47 @@ This file is not part of the repository. It is passed to the configure command.
 It should be a file with one `<key>=<value>` statement per line.
 
     message="Hello World."
+
+# Iterating and Deploying with herd
+
+## clone the repo
+
+    git clone git@github.com:OAODEV/hello-service.git
+    cd hello-service
+
+## Update tests and code
+
+    echo "# `whoami` ran the tutorial on `date`\n" >> app/serve_hello.py
+    git commit --am "adds importand comment"
+
+## Integrate
+
+    herd integrate
+
+## Note the build name in CCI
+
+This is currently a manual process. We go over to
+(CircleCI)[https://circleci.com/gh/OAODEV/hello-service], click into our build
+then look for where it says `echo "The build name is in here!!!"
+r.iadops.com/$herd_service_name:$herd_build_tag`. It's in there and should look
+like this
+
+    r.iadops.com/hello:<semver>_build.<hash>
+
+## Configure the Build
+
+First create or locate a config file
+
+    echo "greeting=<your personal greeting>" > hello.conf
+
+Then use that to configure the build using the build name you noted earlier.
+This will result in a Release.
+
+    herd configure r.iadops.com/hello:<semver>_build.<hash> ./hello.conf
+
+If this succeeds it will print out the details of the Release that was created.
+Note the release number.
+
+## Deploy the release
+
+    herd deploy <Release Number> <host[:port]>
