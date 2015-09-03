@@ -71,8 +71,7 @@ file.
 
 ### Config file
 
-This file is not part of the repository. It is passed to the deploy command and
-for this project specifies the message that this helloService should send.
+This file is not part of the repository. It is passed to the configure command.
+It should be a file with one `<key>=<value>` statement per line.
 
-    [Config]
     message="Hello World."
