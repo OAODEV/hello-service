@@ -5,7 +5,7 @@ An example service project outlining our DevOps project setup
 
 Clone this project with
 
-    git clone -o hub -b mainline git@github.com:OAODEV/helloService.git
+    git clone git@github.com:OAODEV/helloService.git
 
 
 The Service
