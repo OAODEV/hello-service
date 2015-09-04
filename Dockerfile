@@ -6,7 +6,7 @@ FROM ubuntu:14.04
 # This simply identifies the maintainer of the container
 MAINTAINER jesse.miller@adops.com
 
-# each `RUN` statement applies a change to the container by executing
+# each `RUN` statement builds the container layer by layer through executing
 # the command in the container. Here we first update the package manager
 # Then install a few external dependencies (python, pip, git and the
 # mock library).
@@ -22,11 +22,11 @@ RUN pip install git+https://github.com/OAODEV/hellolib.git
 # inside the container's filesystem
 ADD . /hello
 
-# Add the Manifest to /Manifest where the platform will look at for it.
+# Add the Manifest to /Manifest where herd will look for it.
 ADD Manifest /Manifest
 
 # Run all commands from this folder. This is where the service will be
-# located after the last step copies the files in.
+# located after the previous step copies the files in.
 WORKDIR /hello/app
 
 # the default command to run when running this container. This should
