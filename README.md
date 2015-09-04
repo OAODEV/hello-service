@@ -40,9 +40,9 @@ More information on [docker containers](http://docs.docker.com/).
 
 ### Manifest
 
-This file describes to the operations platform certain specifics about
-the service that the platform needs in order to work with it. Details
-are documented in the Manifest file
+This file describes to herd certain specifics about the service that 
+the platform needs in order to work with it. Details are documented 
+in the Manifest file
 
 Each `Dockerfile` must put the `Manifest` at `/Manifest` so that the
 platform may access it in a known location.
@@ -62,7 +62,7 @@ under `machine -> environment`
     machine:
       services:
         - docker
-      environmnet:
+      environment:
         herd_service_name: <service name>
         herd_unittest_cmd: <unittest cmd>
 
@@ -90,11 +90,13 @@ It should be a file with one `<key>=<value>` statement per line.
 
 ## Integrate
 
+For details on the herd command `integrate` see https://github.com/OAODEV/herd#integrate
+
     herd integrate
 
-## Note the build name in CCI
+## Note the build name in CircleCI
 
-This is currently a manual process. We go over to
+This is currently a manual process. If the build passes, we go over to
 [CircleCI](https://circleci.com/gh/OAODEV/hello-service), click into our build
 then look for where it says
 
@@ -115,7 +117,7 @@ This will result in a Release.
 
     herd configure r.iadops.com/hello:<semver>_build.<hash> ./hello.conf
 
-If this succeeds it will print out the details of the Release that was created.
+If this succeeds, it will print out the details of the Release that was created.
 Note the release number.
 
 ## Deploy the release
