@@ -25,6 +25,9 @@ ADD . /hello
 # Add the Manifest to /Manifest where the platform will look at for it.
 ADD Manifest /Manifest
 
+# add the entrypoint script
+ADD ./entrypoint.sh /entrypoint.sh
+
 # Run all commands from this folder. This is where the service will be
 # located after the last step copies the files in.
 WORKDIR /hello/app
@@ -32,4 +35,5 @@ WORKDIR /hello/app
 # the default command to run when running this container. This should
 # be the command to run the service as it will be what runs when the
 # operations platform deploys the service.
+ENTRYPOINT ['/entrypoint.sh']
 CMD python serve_hello.py
