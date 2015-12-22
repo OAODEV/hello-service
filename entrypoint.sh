@@ -1,4 +1,3 @@
-
 #! /bin/bash
 
 # from the secret env folder
