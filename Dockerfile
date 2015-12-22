@@ -29,7 +29,15 @@ ADD Manifest /Manifest
 # located after the previous step copies the files in.
 WORKDIR /hello/app
 
+# add the entrypoint script
+ADD ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENV Environment_name sandbox
+ENV greeting hello
+
 # the default command to run when running this container. This should
 # be the command to run the service as it will be what runs when the
 # operations platform deploys the service.
-CMD python serve_hello.py
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["python", "serve_hello.py"]

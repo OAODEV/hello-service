@@ -7,19 +7,40 @@ machine:
 
     herd_build_tag: $(cat $CIRCLE_PROJECT_REPONAME/Version)_build.$(echo $CIRCLE_SHA1 | cut -c1-7)
 
+    CLOUDSDK_CORE_DISABLE_PROMPTS: 1
+    CLOUDSDK_PYTHON_SITEPACKAGES: 1
+    CLOUDSDK_COMPUTE_ZONE: us-central1-b
+    PATH: $PATH:/home/ubuntu/google-cloud-sdk/bin
+
 dependencies:
+  cache_directories:
+    - ~/google-cloud-sdk
+    - ~/docker
+
   override:
-    - echo "The build name is in here!!!" r.iadops.com/$herd_service_name:$herd_build_tag
-    - docker info
-    - docker login --username circleci --password $registry_password --email fake@fake.co r.iadops.com
-    - docker build -t r.iadops.com/$herd_service_name:$herd_build_tag .
+    # install gcloud
+    - if [ ! -d ~/google-cloud-sdk ]; then curl https://sdk.cloud.google.com | bash; fi
+    - ~/google-cloud-sdk/bin/gcloud components update preview
+
+    - curl --header X-CI-Token:$registry_password http://104.197.109.161/commit/$CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH/$CIRCLE_BRANCH/$CIRCLE_SHA1; true
+
+    # build the image
+    - echo $gcloud_key | base64 --decode > gcloud.json; gcloud auth activate-service-account $gcloud_email --key-file gcloud.json; ssh-keygen -f ~/.ssh/google_compute_engine -N ""
+    - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
+    - docker build -t us.gcr.io/lexical-cider-93918/$herd_service_name:$herd_build_tag .
+
+    # cache the image to speed up the next build
+    - mkdir -p ~/docker; docker save us.gcr.io/lexical-cider-93918/$herd_service_name:$herd_build_tag > ~/docker/image.tar
 
 test:
   override:
-    - docker run r.iadops.com/$herd_service_name:$herd_build_tag $herd_unittest_cmd
+    - docker run us.gcr.io/lexical-cider-93918/$herd_service_name:$herd_build_tag $herd_unittest_cmd
 
 deployment:
   index:
     branch: /.*/
     commands:
-      - docker push r.iadops.com/$herd_service_name:$herd_build_tag
+      - gcloud docker push us.gcr.io/lexical-cider-93918/$herd_service_name:$herd_build_tag
+
+      - curl --header X-CI-Token:$registry_password http://104.197.109.161/build/$CIRCLE_SHA1/us.gcr.io/lexical-cider-93918/$herd_service_name:$herd_build_tag?
+
