@@ -22,7 +22,7 @@ dependencies:
     - if [ ! -d ~/google-cloud-sdk ]; then curl https://sdk.cloud.google.com | bash; fi
     - ~/google-cloud-sdk/bin/gcloud components update preview
 
-    - curl --header X-CI-Token:$registry_password http://104.197.109.161/commit/$CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH/$CIRCLE_BRANCH/$CIRCLE_SHA1?x; true
+    - curl --header X-CI-Token:$registry_password http://104.197.109.161/commit/$CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH/$CIRCLE_BRANCH/$CIRCLE_SHA1; true
 
     # build the image
     - echo $gcloud_key | base64 --decode > gcloud.json; gcloud auth activate-service-account $gcloud_email --key-file gcloud.json; ssh-keygen -f ~/.ssh/google_compute_engine -N ""
@@ -39,8 +39,8 @@ test:
 deployment:
   index:
     branch: /.*/
-    commands:
-
+    commands
+:
       - gcloud docker push us.gcr.io/lexical-cider-93918/$herd_service_name:$herd_build_tag
 
       - curl --header X-CI-Token:$registry_password http://104.197.109.161/build/$CIRCLE_SHA1/us.gcr.io/lexical-cider-93918/$herd_service_name:$herd_build_tag?
