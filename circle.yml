@@ -34,7 +34,7 @@ dependencies:
 
 test:
   override:
-    - docker run us.gcr.io/lexical-cider-93918/$herd_service_name:$herd_build_tag
+    - docker run us.gcr.io/lexical-cider-93918/$herd_service_name:$herd_build_tag $herd_unittest_cmd
 
 deployment:
   index:
