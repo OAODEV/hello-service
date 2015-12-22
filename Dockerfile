@@ -33,8 +33,8 @@ WORKDIR /hello/app
 ADD ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-ENV Environment_name demo
-ENV greeting Dec2015
+ENV Environment_name sandbox
+ENV greeting hello
 
 # the default command to run when running this container. This should
 # be the command to run the service as it will be what runs when the
