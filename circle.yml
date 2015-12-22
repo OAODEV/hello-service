@@ -39,8 +39,7 @@ test:
 deployment:
   index:
     branch: /.*/
-    commands
-:
+    commands:
       - gcloud docker push us.gcr.io/lexical-cider-93918/$herd_service_name:$herd_build_tag
 
       - curl --header X-CI-Token:$registry_password http://104.197.109.161/build/$CIRCLE_SHA1/us.gcr.io/lexical-cider-93918/$herd_service_name:$herd_build_tag?
