@@ -35,7 +35,7 @@ RUN chmod +x /entrypoint.sh
 
 ENV Environment_name sandbox
 ENV greeting hello
-
+EXPOSE 8001
 # the default command to run when running this container. This should
 # be the command to run the service as it will be what runs when the
 # operations platform deploys the service.
