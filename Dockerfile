@@ -10,7 +10,7 @@ MAINTAINER jesse.miller@adops.com
 # the command in the container. Here we first update the package manager
 # Then install a few external dependencies (python, pip, git and the
 # mock library).
-RUN apk add --update py-pip python git
+RUN apk add --update py-pip python git && rm -rf /var/cache/apk/*
 RUN pip install mock
 
 # this installs the internally developed dependency (hellolib).
@@ -37,5 +37,5 @@ EXPOSE 8001
 # the default command to run when running this container. This should
 # be the command to run the service as it will be what runs when the
 # operations platform deploys the service.
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["ash", "/entrypoint.sh"]
 CMD ["python", "serve_hello.py"]
