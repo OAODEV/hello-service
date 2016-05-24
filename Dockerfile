@@ -30,7 +30,7 @@ WORKDIR /hello/app
 ADD ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-ENV greeting "Hello!"
+ENV greeting "Hello! Thanks for joining hte demo."
 
 EXPOSE 8001
 # the default command to run when running this container. This should
