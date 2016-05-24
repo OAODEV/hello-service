@@ -19,22 +19,10 @@ class DockerHelloTests(unittest.TestCase):
     def setUp(self):
         # set up expected/dependant envars
         os.environ['greeting'] = "test message"
-        os.environ['Environment_name'] = "test"
+        os.environ['HOSTNAME'] = "test"
 
     def tearDown(self):
         del os.environ['greeting']
-        del os.environ['Environment_name']
-
-    def test_envars_are_set(self):
-        """
-        ensure that the envars expected to be present have been injected by
-        the platform when testing (in the same way they will when deployed)
-
-        This test only verifies that `fab test` sets the envars
-
-        """
-
-        self.assertTrue("Environment_name" in os.environ)
 
     def test_hello_handler(self):
         # set up

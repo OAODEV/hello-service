@@ -40,7 +40,7 @@ class HelloHandler(SocketServer.StreamRequestHandler):
         template = "<h1>{}</h1><h2>from: {}</h2>"
         self.wfile.write(template.format(
             hello(),
-            os.environ['Environment_name'],
+            os.environ['HOSTNAME'],
         ))
 
         log.info("Greeting sent")

@@ -30,7 +30,6 @@ WORKDIR /hello/app
 ADD ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-ENV Environment_name qa-sandbox
 ENV greeting "Hello!"
 
 EXPOSE 8001
