@@ -1,7 +1,7 @@
 # Start with a base container of ubuntu 14.04 when this project is
 # built it will download the base ubuntu image and apply all changes
 # to that.
-FROM ubuntu:14.04
+FROM alpine:edge
 
 # This simply identifies the maintainer of the container
 MAINTAINER jesse.miller@adops.com
@@ -10,7 +10,7 @@ MAINTAINER jesse.miller@adops.com
 # the command in the container. Here we first update the package manager
 # Then install a few external dependencies (python, pip, git and the
 # mock library).
-RUN apt-get update && apt-get install -y python-pip git
+RUN apk add --update py-pip python git
 RUN pip install mock
 
 # this installs the internally developed dependency (hellolib).
@@ -22,9 +22,6 @@ RUN pip install git+https://github.com/OAODEV/hellolib.git
 # inside the container's filesystem
 ADD . /hello
 
-# Add the Manifest to /Manifest where herd will look for it.
-ADD Manifest /Manifest
-
 # Run all commands from this folder. This is where the service will be
 # located after the previous step copies the files in.
 WORKDIR /hello/app
@@ -33,8 +30,9 @@ WORKDIR /hello/app
 ADD ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-ENV Environment_name sandbox
+ENV Environment_name qa-sandbox
 ENV greeting hello
+
 EXPOSE 8001
 # the default command to run when running this container. This should
 # be the command to run the service as it will be what runs when the
