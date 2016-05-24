@@ -55,7 +55,7 @@ when the container is run that container will be listening on port
 
 """
 
-httpd = SocketServer.TCPServer(("", 8001), HelloHandler)
+httpd = SocketServer.TCPServer(("", 8000), HelloHandler)
 
 def main():
     httpd.serve_forever()
