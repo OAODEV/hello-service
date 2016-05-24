@@ -31,7 +31,7 @@ ADD ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 ENV Environment_name qa-sandbox
-ENV greeting hello
+ENV greeting "Hello!"
 
 EXPOSE 8001
 # the default command to run when running this container. This should

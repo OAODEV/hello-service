@@ -37,7 +37,7 @@ class HelloHandler(SocketServer.StreamRequestHandler):
         log.info("Handling {} from ".format(self.rfile.readline().strip(),
                                        self.client_address[0]))
 
-        template = "<h1>{}</h1><h2>from: test</h2>"
+        template = "<h1>{}</h1><h2>from: {}</h2>"
         self.wfile.write(template.format(
             hello(),
             os.environ['Environment_name'],
