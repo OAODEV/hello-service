@@ -15,7 +15,7 @@ name=hello
 unittest_cmd=python test_hello_service.py
 
 # The port that will be exposed by the container. The platform will use
-# this to set up routing between services during orchistration.
+# this to set up routing between services during orchestration.
 service_port=8001
 
 # this service relies on certain envars to be present in the environment
